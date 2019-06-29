@@ -1,6 +1,7 @@
 require_relative 'lib/product'
 require_relative 'lib/book'
 require_relative 'lib/film'
+require_relative 'lib/cart'
 require_relative 'lib/disk'
 require_relative 'lib/product_collection'
 
@@ -10,10 +11,41 @@ collection = ProductCollection.from_dir(current_path)
 
 products = collection.sort!(field: :price, type: :desc).to_a
 
-puts 'Вот какие товары у нас есть:'
+if products.empty?
+  puts 'Увы, все товары закончились :('
+else
+  puts 'Что хотите купить:'
 
-products.each do |item|
-  puts item
+  user_input = ''
+
+  client_cart = Cart.new
+
+  until user_input = '0'
+    products.each.with_index(1) do |_product, index|
+      puts "#{index}. #{item}"
+    end
+
+    puts '0. Выход'
+
+    user_input = STDIN.gets.strip
+    next if user_input == '0' # сразу ввели 0, значит отправляем на выход
+
+    # ввели строку, уведомляю и отправляю на следующий виток цикла
+    if user_input.to_i == 0
+      puts 'Введите номер позиции, которую хотите приобрести!'
+      next
+    end
+
+    product_index = user_input.to_i - 1
+
+    unless products[product_index]
+      puts 'Введенной позиции нет в списке!'
+      next
+    end
+
+    client_cart.add_to_cart(products[product_index])
+  end
+
 end
 
 ## Пытаемся вызвать метод from_file у класса Product и ловим ошибку
