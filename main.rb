@@ -2,17 +2,25 @@ require_relative 'lib/product'
 require_relative 'lib/book'
 require_relative 'lib/film'
 
-film1 = Film.new(title: 'Леон', director: 'Люк Бессон', year: '1994', price: 990, balance: 5)
-film2 = Film.new(title: 'Дурак', director: 'Юрий Быков', year: '2014', price: 390, balance: 1)
-book  = Book.new(title: 'Идиот', author: 'Федор Достоевский', genre: 'роман', price: 1500, balance: 10)
+current_path = File.dirname(__FILE__)
 
-products = [film1, film2, book]
+film1 = Film.from_file(current_path + '/data/films/1.txt')
+# film2 = Film.new(title: 'Дурак', director: 'Юрий Быков', year: '2014', price: 390, balance: 1)
+book = Book.from_file(current_path + '/data/books/1.txt')
+
+book1 = Book.from_file('/data/books/1.txt')
+
+products = [film1, book]
 
 puts 'Вот какие товары у нас есть:'
-
-book.balance =  15
-film1.balance = 10
 
 products.each do |item|
   puts item
 end
+
+# Пытаемся вызвать метод from_file у класса Product и ловим ошибку
+begin
+    Product.from_file(current_path + '/data/films/01.txt')
+rescue NotImplementedError
+  puts 'Метод класса Product.from_file не реализован'
+  end
