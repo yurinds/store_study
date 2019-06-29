@@ -9,7 +9,7 @@ current_path = File.dirname(__FILE__)
 
 collection = ProductCollection.from_dir(current_path)
 
-products = collection.sort!(field: :price, type: :desc).to_a
+products = collection.sort!(field: :title).to_a
 
 if products.empty?
   puts 'Увы, все товары закончились :('
@@ -41,35 +41,32 @@ else
 
     product_index = user_input.to_i - 1
 
-    unless products[product_index]
+    input_product = products[product_index]
+    unless input_product
       puts 'Введенной позиции нет в списке!'
+      puts
       next
     end
 
-    # уменьшить кол во надо уже здесь
+    input_product.correct_balance
+    collection.correct_collection(input_product)
+    products = collection.sort!(field: :title).to_a
+
     puts
-    puts "Вы выбрали: #{products[product_index]}"
+    puts "Вы выбрали: #{input_product}"
     puts
 
-    client_cart.add_to_cart(products[product_index])
+    client_cart.add_to_cart(input_product)
   end
 
 end
 
-cart = client_cart.to_a
+cart = client_cart.to_h
 unless cart.empty?
   puts 'Вы купили:'
-  cart.each do |item|
-    puts item
+  cart.each do |product, quantity|
+    puts "#{quantity} x #{product}"
   end
   puts
   puts "С Вас — #{client_cart.sum} руб. Спасибо за покупки!"
 end
-
-## Пытаемся вызвать метод from_file у класса Product и ловим ошибку
-# begin
-#  Product.from_file(current_path + '/data/films/01.txt')
-# rescue NotImplementedError
-#  puts 'Метод класса Product.from_file не реализован'
-# end
-#

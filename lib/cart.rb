@@ -2,18 +2,24 @@ class Cart
   attr_accessor :products
 
   def initialize
-    @products = []
+    @products = {}
   end
 
   def add_to_cart(product)
-    @products << product
+    if @products[product]
+      @products[product] += 1
+    else
+      @products[product] = 1
+    end
   end
 
-  def to_a
+  def to_h
     @products
   end
 
   def sum
-    @products.sum(&:price)
+    sum = 0
+    @products.each { |product, quantity| sum += quantity * product.price }
+    sum
   end
 end

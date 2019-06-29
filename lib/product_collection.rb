@@ -22,6 +22,10 @@ class ProductCollection
       end
     end
 
+    products.each do |product|
+      products.delete(product) if product.balance == 0
+    end
+
     new(products)
   end
 
@@ -35,6 +39,10 @@ class ProductCollection
     @collection.reverse! if params[:type] == :desc
 
     self
+  end
+
+  def correct_collection(product)
+    @collection.delete(product) if product.balance == 0
   end
 
   def to_a

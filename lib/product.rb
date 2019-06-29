@@ -9,4 +9,8 @@ class Product
   def self.from_file(_file_path)
     raise NotImplementedError
   end
+
+  def correct_balance
+    @balance -= 1
+  end
 end
