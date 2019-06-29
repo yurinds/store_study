@@ -22,6 +22,7 @@ class ProductCollection
       end
     end
 
+    # удаляю, если количество = 0
     products.each do |product|
       products.delete(product) if product.balance == 0
     end
