@@ -10,6 +10,9 @@ products = [film1, film2, book]
 
 puts 'Вот какие товары у нас есть:'
 
+book.balance =  15
+film1.balance = 10
+
 products.each do |item|
   puts item
 end
