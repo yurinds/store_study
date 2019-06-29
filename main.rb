@@ -14,15 +14,18 @@ products = collection.sort!(field: :price, type: :desc).to_a
 if products.empty?
   puts 'Увы, все товары закончились :('
 else
-  puts 'Что хотите купить:'
 
   user_input = ''
 
   client_cart = Cart.new
 
-  until user_input = '0'
-    products.each.with_index(1) do |_product, index|
-      puts "#{index}. #{item}"
+  until user_input == '0'
+
+    puts 'Что хотите купить:'
+    puts
+
+    products.each.with_index(1) do |product, index|
+      puts "#{index}. #{product}"
     end
 
     puts '0. Выход'
@@ -43,9 +46,24 @@ else
       next
     end
 
+    # уменьшить кол во надо уже здесь
+    puts
+    puts "Вы выбрали: #{products[product_index]}"
+    puts
+
     client_cart.add_to_cart(products[product_index])
   end
 
+end
+
+cart = client_cart.to_a
+unless cart.empty?
+  puts 'Вы купили:'
+  cart.each do |item|
+    puts item
+  end
+  puts
+  puts "С Вас — #{client_cart.sum} руб. Спасибо за покупки!"
 end
 
 ## Пытаемся вызвать метод from_file у класса Product и ловим ошибку
