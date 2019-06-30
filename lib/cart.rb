@@ -6,11 +6,8 @@ class Cart
   end
 
   def add_to_cart(product)
-    if @products[product]
-      @products[product] += 1
-    else
-      @products[product] = 1
-    end
+    @products[product] ||= 0
+    @products[product] += 1
   end
 
   def to_h
