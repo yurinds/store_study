@@ -9,7 +9,7 @@ class Book < Product
   end
 
   def to_s
-    text = "Книга \"#{title}\", #{genre}, автор - #{author}, #{price} руб. (осталось #{balance})"
+    "Книга \"#{title}\", #{genre}, автор - #{author}, #{price} руб. (осталось #{balance})"
   end
 
   def self.from_file(path)

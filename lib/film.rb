@@ -9,7 +9,7 @@ class Film < Product
   end
 
   def to_s
-    text = "Фильм \"#{title}\", #{year}, реж. #{director}, #{price} руб. (осталось #{balance})"
+    "Фильм \"#{title}\", #{year}, реж. #{director}, #{price} руб. (осталось #{balance})"
   end
 
   def self.from_file(path)
