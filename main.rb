@@ -21,7 +21,7 @@ until collection.empty?
   puts '0. Выход'
 
   user_input = ''
-  user_input = STDIN.gets.strip until collection.valid_range.include?(user_input)
+  user_input = STDIN.gets.strip until collection.collection_size_range.include?(user_input)
 
   break if user_input == '0' # сразу ввели 0, значит отправляем на выход
 

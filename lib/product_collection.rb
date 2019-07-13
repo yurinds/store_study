@@ -59,7 +59,7 @@ class ProductCollection
     @collection.delete(product) if product.balance == 0
   end
 
-  def valid_range
+  def collection_size_range
     ('0'..@collection.size.to_s)
   end
 
