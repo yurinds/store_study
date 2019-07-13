@@ -21,11 +21,12 @@ until collection.empty?
   puts '0. Выход'
 
   user_input = ''
-  user_input = STDIN.gets.strip until collection.valid_product?(user_input)
+  user_input = STDIN.gets.strip until collection.valid_range.include?(user_input)
 
   break if user_input == '0' # сразу ввели 0, значит отправляем на выход
 
-  input_product = collection.find(user_input)
+  input_index = user_input.to_i - 1
+  input_product = collection.find(input_index)
   collection.sale_product(input_product)
 
   puts

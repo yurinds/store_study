@@ -50,8 +50,7 @@ class ProductCollection
     @collection.empty?
   end
 
-  def find(user_input)
-    index = user_input.to_i - 1
+  def find(index)
     @collection[index]
   end
 
@@ -60,8 +59,8 @@ class ProductCollection
     @collection.delete(product) if product.balance == 0
   end
 
-  def valid_product?(user_input)
-    ('0'..@collection.size.to_s).cover?(user_input)
+  def valid_range
+    ('0'..@collection.size.to_s)
   end
 
   def to_s
