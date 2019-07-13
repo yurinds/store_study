@@ -10,7 +10,7 @@ class Product
     raise NotImplementedError
   end
 
-  def correct_balance
+  def update_balance
     @balance -= 1
   end
 end

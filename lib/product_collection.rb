@@ -42,11 +42,33 @@ class ProductCollection
     self
   end
 
-  def correct_collection(product)
+  def to_a
+    @collection
+  end
+
+  def empty?
+    @collection.empty?
+  end
+
+  def find(user_input)
+    index = user_input.to_i - 1
+    @collection[index]
+  end
+
+  def sale_product(product)
+    product.update_balance
     @collection.delete(product) if product.balance == 0
   end
 
-  def to_a
-    @collection
+  def valid_product?(user_input)
+    ('0'..@collection.size.to_s).cover?(user_input)
+  end
+
+  def to_s
+    text = ''
+    @collection.each.with_index(1) do |product, index|
+      text += "#{index}. #{product}\n"
+    end
+    text
   end
 end

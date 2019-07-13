@@ -10,8 +10,16 @@ class Cart
     @products[product] += 1
   end
 
-  def to_h
-    @products
+  def to_s
+    text = ''
+    @products.each do |product, quantity|
+      text += "#{quantity} x #{product}\n"
+    end
+    text
+  end
+
+  def empty?
+    @products.empty?
   end
 
   def sum
